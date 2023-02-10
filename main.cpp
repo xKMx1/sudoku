@@ -147,11 +147,14 @@ void genNumbers(int tab[][9][2])
     {
         for (int j = 0; j < 9; j++)
         {
-            int x = rand() % 9 + 1;
-            if (checkingCol(tab, j, x))
-                if (checkingRow(tab, i, x))
-                    if (checkingSquare(tab, j, i, x))
-                        tab[i][j][0] = x;
+            for (int n = 0; n < 10; n++)
+            {
+                int x = rand() % 9 + 1;
+                if (checkingCol(tab, j, x))
+                    if (checkingRow(tab, i, x))
+                        if (checkingSquare(tab, j, i, x))
+                            tab[i][j][0] = x;
+            }
         }
     }
 }
