@@ -1,13 +1,35 @@
 #include <iostream>
-#include <cstdlib>
-#include <iomanip>
 #include <SFML/Graphics.hpp>
 
 using namespace std;
 
+class Cell{
+    private:
+        sf::Vector2<float> mCoordinates;
+        int value;
+    public:
+        int getValue(){
+            return value;
+        }
+        
+        void setCoordinates(float x, float y){
+            mCoordinates.x = x;
+            mCoordinates.y = y;
+        }
+};
+
+void generateBoard(){
+    Cell* board = new Cell[81];
+    for(int i = 0; i < 9; i++){                                         // x coordinates loop
+        for(int j = 0; j < 9; j++){                                     // y coordinates loop
+            board[i].setCoordinates((i+1) * 55.55f, (j+1) * 55.55f);
+        }
+    }
+}
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1200, 700), "Sudoku");
+    sf::RenderWindow window(sf::VideoMode(500, 500), "Sudoku");
 
     sf::Texture texture;
 
