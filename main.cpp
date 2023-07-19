@@ -14,6 +14,7 @@ class Cell{
             sf::Vector2f spriteSize(50.0f, 50.0f);
             sf::Vector2f spritePosition(mCoordinates.x + 2.75f, mCoordinates.y + 2.75f);
 
+            this->setValue(0);
             this->setCellNumber(n);
             mSprite.setSize(spriteSize);
             mSprite.setFillColor(sf::Color(120,120,120));
@@ -55,36 +56,15 @@ Cell* generateBoard(){
         }
     }
 
-
-
     return board;
 }
 
 bool checkRow(Cell* cell, Cell* gameBoard, int potNumber){
-    int row;
-
-    switch(int(cell->getCoordinates().y / 55.555f)){                // get cell coordinates -> transform them into int coresponding to the number to the row 
-        case 0:
-            row = 0;
-        case 1:
-            row = 1;
-        case 2:
-            row = 2;
-        case 3:
-            row = 3;
-        case 4:
-            row = 4;
-        case 5:
-            row = 5;
-        case 6:
-            row = 6;
-        case 7:
-            row = 7;
-        case 8:
-            row = 8;
-    }
+    int row = int(cell->getCoordinates().y / 55.555f);
 
     for(int i = 0; i < 9; i++){
+        std::cout << i << " " << gameBoard[(row*9)+i].getValue() << std::endl;
+
         if(gameBoard[(row*9)+i].getValue() == potNumber){
             return false;
         }
@@ -93,29 +73,8 @@ bool checkRow(Cell* cell, Cell* gameBoard, int potNumber){
 }
 
 bool checkCol(Cell* cell, Cell* gameBoard, int potNumber){
-    int column;
-
-    switch(int(cell->getCoordinates().x / 55.555f)){                
-        case 0:
-            column = 0;
-        case 1:
-            column = 1;
-        case 2:
-            column = 2;
-        case 3:
-            column = 3;
-        case 4:
-            column = 4;
-        case 5:
-            column = 5;
-        case 6:
-            column = 6;
-        case 7:
-            column = 7;
-        case 8:
-            column = 8;
-    }
-
+    int column = int(cell->getCoordinates().x / 55.555f);
+    
     for(int i = 0; i < 9; i++){
         if(gameBoard[(i*9) + column].getValue() == potNumber){
             return false;
@@ -168,6 +127,13 @@ int main()
     sf::Texture texture;
 
     Cell* gameBoard = generateBoard();
+
+    if(checkNonet(&gameBoard[10], gameBoard, 4)){
+        std::cout << "Works" << std::endl;
+    }
+    else{
+        std::cout << "Doesnt work" << std::endl;
+    }
 
     window.setFramerateLimit(60);
     while(window.isOpen()){
